@@ -14,7 +14,6 @@ import csv
 
 def ej3():
     print('Ejercicio de archivos CSV 1º')
-    archivo = 'stock.csv'
     
     # Realice un programa que abra el archivo 'stock.csv'
     # en modo lectura y cuente el stock total de tornillos
@@ -27,7 +26,23 @@ def ej3():
     # para cumplir con el enunciado del ejercicio
 
     # Comenzar aquí, recuerde el identado dentro de esta funcion
+    with open('stock.csv') as csvfile:
+        data = list(csv.DictReader(csvfile))
     
+    cantidad_de_filas = len(data)
+        
+    cantidad_de_tornillos = 0
+    
+    for i in range(cantidad_de_filas):
+            
+        valor = data[i].get('tornillos')
+            
+        cantidad_de_tornillos = int(valor) + cantidad_de_tornillos
+        print('registro',i+1,':', valor, '-----> Subtotal:',cantidad_de_tornillos)
+    print('Stock total de tornillos:', cantidad_de_tornillos)
+
+    
+        
 
 
 def ej4():
@@ -47,6 +62,25 @@ def ej4():
     # utilizando "try except", tema que se verá la clase que viene.
 
     # Comenzar aquí, recuerde el identado dentro de esta funcion
+    with open('propiedades.csv') as csvfile:
+        deptos = list(csv.DictReader(csvfile))
+    filas = len(deptos)
+    depto_2_amb = 0
+    depto_3_amb = 0
+
+    for k in range(filas):
+        try:    
+            amb = int(deptos[k].get('ambientes'))
+            
+            if amb == 2:
+                depto_2_amb += 1
+            elif amb == 3:
+                depto_3_amb += 1
+        except:
+            continue
+    print('Cantidad de departamentos disponibles de 2 ambientes:',depto_2_amb)
+    print('Cantidad de departamentos disponibles de 3 ambientes:',depto_3_amb)
+
 
 
 if __name__ == '__main__':
